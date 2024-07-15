@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+
+  .form__input {
+    max-width: 200px;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    border: none;
+  }
+}
