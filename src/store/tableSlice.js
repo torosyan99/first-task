@@ -36,14 +36,15 @@ const tableSlice = createSlice({
   reducers: {
     sortState: (state, action) => {
       let { key, type } = action.payload;
-      if (type == "up") state.originalData = state.data;
+
+      if (type == "up") state.originalData = [...state.data];
       else if (type === "none") {
         state.data = state.originalData;
         state.originalData = [];
         state.sortedKey = "";
         return state;
       }
-      const newData = state.data.sort((a, b) => {
+      state.data.sort((a, b) => {
         if (typeof a[key] === "number" && typeof b[key] === "number") {
           if (type === "up") return a[key] - b[key];
           else if (type == "down") return b[key] - a[key];
@@ -60,7 +61,6 @@ const tableSlice = createSlice({
         else if (type == "down") return b[key].localeCompare(a[key]);
       });
 
-      state.data = newData;
       state.sortedData = true;
       state.sortedKey = key;
       return state;
