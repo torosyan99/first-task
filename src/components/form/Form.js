@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterUsers, getUsers } from "../../store/tableSlice";
 import Select from "../../UI/select/Select";
 
@@ -7,7 +7,7 @@ import "./form.scss";
 
 function Form() {
   const dispatch = useDispatch();
-
+  const table = useSelector((state) => state.table.receivedData);
   const [key, setKey] = useState("First Name");
   const [value, setValue] = useState("");
   const list = ["First Name", "Age", "Gender", "Address"];
@@ -18,8 +18,8 @@ function Form() {
       value,
     };
 
-    if (res.value.length > 0) dispatch(filterUsers(res));
-    else dispatch(getUsers());
+    if (!table.length) dispatch(getUsers());
+    else dispatch(filterUsers(res));
   }, [value]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Form() {
     <form className="form">
       <Select list={list} selectKey={key} set={setKey} />
       {key === "Gender" ? (
-        <Select list={["Male", "Female"]} set={setValue} selectKey="" />
+        <Select list={["Male", "Female"]} set={setValue} selectKey={value} />
       ) : (
         <input
           className="form__input"

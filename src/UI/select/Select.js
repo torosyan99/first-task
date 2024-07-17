@@ -1,22 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 import "./select.scss";
 
 function Select({ selectKey = "", list = [], set = () => {} }) {
   const [bool, setBool] = useState(false);
   const listClass = bool ? "select__list select__list--active" : "select__list";
-  const ref = useRef();
-  const showList = useCallback(({ target }) => {
-    if (target === ref.current) setBool(!bool);
-    else if (bool) setBool(false);
-  });
 
-  useEffect(() => {
-    document.body.addEventListener("click", showList);
-  });
+  if (list.includes("Male"))
+    selectKey = selectKey.charAt(0).toUpperCase() + selectKey.slice(1);
   return (
     <div className="select">
-      <button className={"select__button"} ref={ref} type="button">
+      <button
+        className={"select__button"}
+        onClick={() => {
+          setBool((bool) => !bool);
+        }}
+        type="button"
+      >
         <span>{selectKey}</span>
         <svg
           width="21"

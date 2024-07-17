@@ -1,10 +1,10 @@
-import Table from "./components/content/Wrapper";
+import Wrapper from "./components/content/Wrapper";
 
 
 function App() {
   return (
     <div className="App">
-         <Table />
+         <Wrapper />
     </div>
   );
 }
